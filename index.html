@@ -65,7 +65,7 @@
                 <div class="row align-items-center">
                   <div class="col-md-6">
                     <!-- Contenido de la pestaña Crear usuario -->
-                    <form>
+                    <form id="formData">
                         <div class="input-group flex-nowrap mb-2">
                             <span class="input-group-text" id="addon-wrapping">Nombre</span>
                             <input
@@ -108,26 +108,31 @@
                         </div>
                         <!-- creado div para poder aplicar flex al botón, y alinearlo a la izquierda -->
                         <div class="d-flex">
-                            <button type="button" class="btn btn-outline-primary" id="submit">Enviar</button>
+                            <button type="button" class="btn btn-outline-primary" data-bs-dismiss="alert" id="submit">Enviar</button>
                         </div>
-                        <!-- alertas de validación -->
-                        <!-- <div class="alert alert-danger alert-dismissible" role="alert" id="allAlert">
-                            Rellena todos los campos
-                        </div> -->
+                        <!-- alerta de validación -->
+                        <div class="mt-4" id="liveAlertPlaceholder"></div>
+        
                     </form>
                   </div>
                 </div>
           </div>
-          <div
+        </div>
+        <div
             class="tab-pane fade"
             id="profile-tab-pane"
             role="tabpanel"
             aria-labelledby="profile-tab"
             tabindex="0">
             <!-- Contenido de la pestaña Usuarios -->
-            ...
+            <div class="row container text-center">
+              <div class="row align-items-center">
+                <div class="row col-md-6" id="userCardContainer" style="width: fit-content;">
+                  
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
       </div>
     </header>
   </body>
