@@ -84,30 +84,60 @@ function correctValues(){
 }
 
 /* si las contraseñas cumplen las condiciones guardamos en un array que guarde todos 
-los usuarios como objetos */
+los usuarios como objetos, si no devolvemos falso  */
 let arrUser = [], content = ''
 function arrayValues(){
+    if(!repeatedValue()){
         arrUser.push({
             'nameValue': nameValue.value,
             'mailValue': mailValue.value,
             'passValue1': passValue1.value,
             'passValue2': passValue2.value,
         })
+        return true
+    }
+    return false
 }
 
+//aseguramos que el nombre y el email introducidos no estén ya utilizados por otro usuario, y enviamos alerta de ello
+function repeatedValue(){
+    const localStorageData = JSON.parse(localStorage.getItem('values'))
+    if (localStorageData === null){
+        return false
+    }
+    for (let i = 0; i < localStorageData.length; i++){
+        if (localStorageData[i].nameValue === nameValue.value && localStorageData[i].mailValue === mailValue.value){
+            appendAlert('El nombre y correo introducidos ya han sido utilizados', 'danger')
+            nameValue.focus()
+            removeAlarm()
+            return true
+
+        } else if (localStorageData[i].mailValue === mailValue.value){
+            appendAlert('El correo introducido ya ha sido utilizado', 'danger')
+            mailValue.focus()
+            removeAlarm()
+            return true
+
+        } else if (localStorageData[i].nameValue === nameValue.value) {
+            appendAlert('El nombre introducido ya ha sido utilizado', 'danger')
+            nameValue.focus()
+            removeAlarm()
+            return true
+        }
+    }
+    return false
+}
+
+//añade en el DOM tarjetas con cada objeto usuario de localStorage
 function userData() {
     let data = JSON.parse(localStorage.getItem('values'))
-    console.log(data, data[0].nameValue)
     data.forEach(el => {
-        content += 
-                `<div class="col-md-4 mt-2" style="width: fit-content">
-                    <div class="card m-10" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">${el.nameValue}</h5>
-                            <p class="card-text">${el.mailValue}</p>
-                        </div>
-                    </div>
-                </div>`
+        content += `<div class="card m-4" style="width: 18rem">
+        <div class="card-header"><h5>${el.nameValue}</h5></div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">${el.mailValue}</li>
+        </ul>
+      </div>`
     });
     userCardsValues.innerHTML = content;
     content = '' // borramos content para que se inicie de nuevo la cadena
@@ -118,8 +148,7 @@ function saveLocalStorage(e) {
     e.preventDefault
     /* si las contraseñas cumplen las condiciones guardamos los datos en LocalStorage,
     y redirigimos a la vista de 'Usuarios' */
-    if (correctValues()) {
-        arrayValues()
+    if (correctValues() && arrayValues()) {
         localStorage.setItem('values', JSON.stringify(arrUser))
         userPanel.focus()
     }
