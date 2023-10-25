@@ -128,6 +128,11 @@ function repeatedValue(){
     return false
 }
 
+function removeSuccessAlert(){
+    const successAlert = document.querySelector('#successAlert')
+    successAlert.remove() 
+}
+
 //añade en el DOM tarjetas con cada objeto usuario de localStorage
 function userData() {
     let data = JSON.parse(localStorage.getItem('values'))
@@ -139,9 +144,13 @@ function userData() {
         </ul>
       </div>`
     });
-    userCardsValues.innerHTML = content;
+    // userCardsValues.innerHTML = content;
+    userCardsValues.innerHTML = content + `<div class="alert alert-success" role="alert" id="successAlert" style="width:fit-content; display:block" >
+                            Usuario guardado correctamente
+                            </div>`
     content = '' // borramos content para que se inicie de nuevo la cadena
     userPanel.click()
+    setTimeout(removeSuccessAlert,3000)
 }
 
 function saveLocalStorage(e) {
