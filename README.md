@@ -53,6 +53,10 @@ Se reflejarán en tarjetas individuales los diferentes usuarios guardados por el
 - Validaciones
 - Responsive
 
+## Presentación de Bootstrap
+
+https://docs.google.com/presentation/d/1Ri-Y3woCKLmlUQaf2pcPEzsAVBwVsAEQi9ynoBfNW54/edit?usp=sharing
+
 ## Autor
 
 - [@IKLANLO](https://github.com/IKLANLO)
